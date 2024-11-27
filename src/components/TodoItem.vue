@@ -10,12 +10,18 @@ const props = defineProps({
 
 const isChecked = ref(props.todo.checked); //바뀔 수 있는 값으로 변경
 
-const emit = defineEmits(['toggle-checkbox'])
+const emit = defineEmits(['toggle-checkbox'], ['todo-delete'])
 
 const toggleCheckbox = (e)=>{
   emit('toggle-checkbox',{
     id: props.todo.id,
     checked: e.target.checked
+  })
+}
+
+const todoDelete = ()=>{
+  emit('todo-delete',{
+    id: props.todo.id
   })
 }
 
@@ -25,19 +31,18 @@ const toggleCheckbox = (e)=>{
 </script>
 
 <template>
-  <div>
+  <div class="d-flex gap-2 align-items-center mt-3">
     <BFormCheckbox
-      id="checkbox-1"
+      :id="`checkbox-${todo.id}`"
       v-model="isChecked"
-      name="checkbox-1"
-      value="accepted"
-      unchecked-value="not_accepted"
+      :name="`checkbox-${todo.id}`"
       @change="toggleCheckbox"
       >
       <!-- :class="['tab-button', { active: currentTab === tab }]" -->
       <!-- <span :class="todo.checked && 'muted'">{{ todo.title }}</span>  -->
       <span :class="{ muted: todo.checked }">{{ todo.title }}</span> 
     </BFormCheckbox>
+    <BButton variant="danger" size="sm" @click="todoDelete">삭제</BButton>
   </div>
 </template>
 
