@@ -39,7 +39,7 @@ const todoDelete = ({id})=>{
 </script>
 
 <template>
- <div id="app" class="container">
+ <div class="container">
   <h1>Vue Todo App</h1>
 
   <!-- 
